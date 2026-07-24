@@ -27,9 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // 訪客計數器：全站共用同一組計數，不分頁面
+  // 原本用的 countapi.xyz 已經停止服務(2026年5月)，改用還在維護的替代版本
   var counterEl = document.getElementById('visitor-count-num');
   if (counterEl) {
-    fetch('https://api.countapi.xyz/hit/moonfong-tw-website/total-visits')
+    fetch('https://countapi.mileshilliard.com/api/v1/hit/moonfong-tw-website-total-visits')
       .then(function (res) { return res.json(); })
       .then(function (data) {
         counterEl.textContent = String(data.value).padStart(6, '0');
