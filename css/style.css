@@ -1,0 +1,441 @@
+/* ==========================================================================
+   盟峰鐵工廠 網站共用樣式
+   ==========================================================================
+   顏色使用規則（重要，之後改版請遵守）：
+   - 紅色（--accent）只用在「跟聯絡/行動有關」的地方：CTA按鈕、聯絡連結
+   - 黃色（--credential）只用在「資歷/認證」類標籤：年份、進出口資格、型號
+   - 其餘一律用中間灰階，不要隨意上色
+   ========================================================================== */
+
+:root {
+  /* 色彩 token */
+  --ink: #2B2A26;          /* 主要文字、深色區塊底色 */
+  --paper: #F4F1E6;        /* 內容頁面底色（米白紙感） */
+  --paper-dim: #EAE5D6;    /* 內容頁面交錯用的深一階底色 */
+  --steel: #6B6A62;        /* 中灰綠，圖片色塊、次要區塊底色 */
+  --steel-light: #8C8A7C;  /* 較淺的灰綠 */
+  --steel-dark: #4A4C46;   /* 較深的灰綠 */
+  --line: #D8D2C0;         /* 淺色分隔線 */
+  --accent: #C4331F;       /* 磚紅色：只用在聯絡/CTA */
+  --accent-dark: #9C2717;  /* 磚紅色 hover 用 */
+  --credential: #E8A317;   /* 琥珀黃：只用在資歷/認證標籤 */
+  --paper-text: #E6E1D2;   /* 深色底色上使用的淺色文字 */
+
+  /* 字體 */
+  --font-display: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-display);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.7;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- 導覽列 ---------- */
+.site-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  background: #8C8A7C;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.site-nav .logo {
+  font-size: 1.9rem;
+  font-weight: 900;
+  color: var(--paper-text);
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.site-nav .nav-links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-size: 0.85rem;
+  color: #D8D5C9;
+}
+.site-nav .nav-links a:hover { color: #fff; }
+.site-nav .nav-links a.active {
+  color: var(--ink);
+  background: var(--credential);
+  padding: 9px 18px;
+  font-weight: 700;
+  display: inline-block;
+  min-width: 88px;
+  text-align: center;
+}
+
+.nav-cta {
+  background: var(--accent);
+  color: #fff !important;
+  font-weight: 700;
+  padding: 9px 18px;
+  clip-path: polygon(8% 0, 100% 0, 92% 100%, 0% 100%);
+}
+.nav-cta:hover { background: var(--accent-dark); }
+
+/* 手機版導覽 */
+.nav-toggle { display: none; }
+@media (max-width: 760px) {
+  .site-nav .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--steel-dark);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 24px;
+    gap: 14px;
+  }
+  .site-nav .nav-links.open { display: flex; }
+  .nav-toggle {
+    display: block;
+    background: none;
+    border: none;
+    color: var(--paper-text);
+    font-size: 1.4rem;
+    cursor: pointer;
+  }
+}
+
+/* ---------- 通用區塊 ---------- */
+.section { padding: 64px 0; }
+.section.alt { background: var(--paper-dim); }
+.section.dark { background: var(--ink); color: var(--paper-text); }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  letter-spacing: 2px;
+  color: var(--steel-dark);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.section.dark .eyebrow { color: #B8B4A0; }
+
+/* ==========================================================================
+   斜切帶系統：上下兩條線角度可以不一樣，區塊一節接一節共用邊界，
+   不會有浮空缺口，也不會露出不相干的第三個顏色
+   ========================================================================== */
+.diag-top {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--cut-a, 46px)), 0 100%);
+  position: relative;
+}
+.diag-follow {
+  margin-top: calc(-1 * var(--cut-a, 46px));
+}
+.diag-bottom-alt {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - var(--cut-b, 78px)));
+}
+.diag-follow-alt {
+  margin-top: calc(-1 * var(--cut-b, 78px));
+}
+
+h1, h2, h3 { font-weight: 900; margin: 0 0 0.5em; line-height: 1.25; }
+h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+
+.lead {
+  font-size: 1.05rem;
+  color: #4A4A42;
+  max-width: 620px;
+}
+.section.dark .lead { color: #C9C7BC; }
+
+/* ---------- 按鈕 ---------- */
+.btn {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  padding: 14px 30px;
+  clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
+  font-size: 0.95rem;
+}
+.btn:hover { background: var(--accent-dark); }
+.btn.ghost {
+  background: transparent;
+  border: 2px solid var(--paper-text);
+  color: var(--paper-text) !important;
+  clip-path: none;
+  padding: 12px 28px;
+}
+
+/* ---------- 標籤（資歷/認證，唯一使用黃色的地方） ---------- */
+.tag-credential {
+  display: inline-block;
+  background: var(--credential);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 5px 10px;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  background: var(--steel);
+  color: var(--paper-text);
+  padding: 56px 0 0;
+  overflow: hidden;
+}
+.hero .wrap { padding-bottom: 0; }
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  color: #fff;
+}
+.hero .hero-sub { color: var(--steel-dark); }
+.hero-meta { display: flex; align-items: center; gap: 14px; margin: 20px 0 40px; flex-wrap: wrap; }
+
+/* ---------- 資訊區塊圖片佔位 ---------- */
+.photo-placeholder {
+  background: var(--steel-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--paper-text);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  min-height: 160px;
+  text-align: center;
+  padding: 12px;
+}
+
+/* ---------- Footer ---------- */
+footer.site-footer {
+  background: var(--ink);
+  color: var(--paper-text);
+  padding: 44px 24px 24px;
+}
+.footer-cta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 26px;
+}
+.footer-cta h2 { color: #fff; font-size: 1.5rem; margin: 0; }
+.footer-rule { height: 2px; background: var(--steel-dark); margin-bottom: 18px; }
+.footer-info {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: #A8A69A;
+}
+
+/* ---------- 頁面標題橫幅（子頁共用） ---------- */
+.page-head {
+  background: var(--steel);
+  color: var(--paper-text);
+  padding: 48px 0 56px;
+}
+.page-head h1 { color: #fff; font-size: clamp(1.8rem, 4vw, 2.6rem); }
+
+/* ---------- 響應式：手機版基本調整 ---------- */
+@media (max-width: 760px) {
+  .section { padding: 44px 0; }
+  .footer-cta { flex-direction: column; align-items: flex-start; }
+}
+
+/* ==========================================================================
+   大膽陽剛區塊（首頁／關於我們專用）
+   ========================================================================== */
+.bold-section {
+  background: var(--steel);
+  color: var(--paper-text);
+  padding: 60px 0;
+  position: relative;
+  overflow: hidden;
+}
+.bold-section.darker { background: var(--ink); }
+.bold-section .eyebrow { color: #C9C7BC; }
+.bold-section h2 { color: #fff; }
+
+.skew-highlight {
+  position: relative;
+  display: inline-block;
+}
+.skew-highlight::before {
+  content: '';
+  position: absolute;
+  left: -10px; right: -10px; top: 8%; bottom: 0;
+  background: var(--accent);
+  transform: skewX(-8deg);
+  z-index: 0;
+}
+.skew-highlight span {
+  position: relative;
+  z-index: 1;
+  padding: 0 4px;
+}
+
+/* 緊密拼接色塊（服務／優勢用） */
+.tight-grid {
+  display: grid;
+  gap: 3px;
+}
+.tight-block {
+  background: var(--steel-dark);
+  padding: 22px 18px;
+}
+.tight-block.raised { background: #7A7972; }
+.tight-block .big-idx {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.7rem;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 8px;
+}
+.tight-block h3 { color: #fff; margin: 0 0 4px; font-size: 1.05rem; }
+.tight-block p { color: #C9C7BC; margin: 0; font-size: 0.92rem; }
+
+/* 時間軸（關於我們用） */
+.timeline-strip { display: flex; gap: 3px; flex-wrap: wrap; }
+.timeline-strip > div {
+  flex: 1;
+  min-width: 130px;
+  background: var(--steel-dark);
+  padding: 18px 14px;
+}
+.timeline-strip > div.now { background: var(--accent); }
+.timeline-strip .t-label { font-size: 1.3rem; font-weight: 900; color: #fff; }
+.timeline-strip .t-sub { font-size: 1rem; color: #D8D5C9; margin-top:6px; }
+
+/* ==========================================================================
+   設備卡片（可點開看更多）
+   ========================================================================== */
+.equip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 3px;
+  background: var(--ink);
+}
+.equip-card {
+  background: var(--paper-dim);
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.15s ease;
+}
+.equip-card:hover { transform: translateY(-3px); }
+.equip-card .equip-photo {
+  height: 140px;
+  background: var(--steel);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--paper-text); font-family: var(--font-mono); font-size: 0.75rem;
+}
+.equip-card .equip-body { padding: 14px 16px 18px; }
+.equip-card h3 { font-size: 1rem; margin: 0 0 6px; }
+.equip-card .spec-preview { font-size: 0.8rem; color: #5A5A50; margin: 0; }
+.equip-card .click-hint {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  margin-top: 8px;
+  display: block;
+}
+
+/* Modal 彈出視窗 */
+.equip-modal {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(20,19,16,0.82);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.equip-modal.open { display: flex; }
+.equip-modal-box {
+  background: var(--paper);
+  max-width: 640px;
+  width: 100%;
+  max-height: 86vh;
+  overflow-y: auto;
+}
+.equip-modal-box .modal-photo {
+  height: 320px;
+  background: var(--steel);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--paper-text); font-family: var(--font-mono);
+}
+.equip-modal-box .modal-body { padding: 26px 28px 30px; }
+.equip-modal-box h3 { font-size: 1.4rem; margin: 0 0 10px; }
+.equip-modal-close {
+  position: absolute;
+  top: 16px; right: 20px;
+  background: var(--ink);
+  color: #fff;
+  border: none;
+  width: 34px; height: 34px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+@media (max-width: 760px) {
+  .timeline-strip { flex-direction: column; }
+  /* 這裡用 !important 是必要的：因為色塊網格的欄數是寫在 HTML 的 inline style
+     裡（方便每個區塊各自調整比例），CSS class 本身的優先權比不過 inline style，
+     手機版要強制改回單欄才不會被擠壓變形 */
+  .tight-grid, .equip-grid { grid-template-columns: 1fr !important; }
+  .tight-block { height: auto !important; min-height:120px; }
+}
+
+/* ---------- 隱藏捲軸，看起來像自動播放而非手動拖曳條 ---------- */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* ---------- 訪客計分板 ---------- */
+.visitor-scoreboard {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #0F0E0C;
+  border: 1px solid #3A3831;
+  padding: 6px 12px;
+}
+.visitor-scoreboard .label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: #8A8678;
+  letter-spacing: 1px;
+}
+.visitor-scoreboard .num {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #E8A317;
+  letter-spacing: 2px;
+}
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 760px) {
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
