@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>設備介紹｜盟峰鐵工廠股份有限公司</title>
+<meta name="description" content="盟峰鐵工廠設備介紹：CNC車床、龍門銑床、遠東搪床R2、雷射雕刻機等14項主力機台完整規格，高雄大寮在地機械加工廠。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="images/logo.png?v=2">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" style="display:flex; align-items:center; gap:10px;"><img src="images/logo.png" alt="盟峰鐵工廠" style="height:42px; width:auto; display:block;"><span class="logo">盟峰鐵工廠股份有限公司</span></a>
+  <button class="nav-toggle" aria-label="開啟選單">☰</button>
+  <div class="nav-links">
+    <a href="index.html">首頁</a>
+    <a href="about.html">關於我們</a>
+    <a href="equipment.html" class="active">設備介紹</a>
+    <a href="projects.html">成品案例</a>
+    <a href="contact.html" class="nav-cta">聯絡我們</a>
+  </div>
+</nav>
+
+<div class="page-head">
+  <div class="wrap">
+    <div class="eyebrow" style="color:#D8D5C9;">設備介紹</div>
+    <h1>19 台主力機台，看得見的加工實力</h1>
+  </div>
+</div>
+
+<!--
+  ============================================================
+  設備資料都寫在下面這個 EQUIPMENT 陣列裡，不在 HTML 裡面重複寫。
+  之後要新增/修改設備，只要改這個陣列就好，網格跟彈出視窗會自動產生。
+
+  每一台的欄位：
+    name  = 設備名稱（一定要有）
+    model = 型號（沒有就留空字串 ""）
+    spec  = 簡短規格，會顯示在卡片上
+    detail = 完整說明，點開才會顯示（可以寫更多字）
+    photo = 之後放照片檔名，例如 "images/cnc-lathe.jpg"，現在先留空用色塊佔位
+  ============================================================
+-->
+<script>
+const EQUIPMENT = [
+  { name: "雷射雕刻機", model: "", spec: "零件標記、細部雕刻加工", detail: "用於零件表面標記與細部雕刻加工，可標示型號、批號等資訊。", photos: ["equip-laser.jpg"] },
+  { name: "傳統車床（2台）", model: "Victor 400×750 ／ KINWA", spec: "600mm × 2000mm", detail: "兩台傳統車床（Victor 400×750、KINWA金華），加工尺寸 600mm × 2000mm，適合中大型軸類零件車削。", photos: ["equip-old-lathe.jpg","equip-old-lathe-2.jpg"] },
+  { name: "CNC 精密車床（3台）", model: "CST-42120／TAKISAWA NEX-110", spec: "Ø800mm ／ 長3000mm", detail: "三台 CNC 精密車床（CST-42120、TAKISAWA NEX-110），最大加工直徑 800mm，長度可達 3000mm，公差控制穩定，適合精密軸類、法蘭類零件量產加工。", photos: ["equip-cnc-lathe.jpg","equip-lathe-nex110.jpg"] },
+  { name: "CNC 龍門銑床（3台）", model: "WELE偉力／LB-321／AWEA SP2016", spec: "加工範圍 1米-4米", detail: "三台龍門銑床（WELE偉力、LB-321、AWEA SP2016），分別為 2-3米、1-2米、3-4米三種加工範圍規格，因應不同尺寸的大型工件銑削需求。", photos: ["equip-gantry-main.jpg","equip-gantry-lb321.jpg","equip-gantry-3.jpg"] },
+  { name: "CNC 銑床", model: "LITZ Hitech CV-1200B", spec: "600mm × 1000mm", detail: "LITZ Hitech CV-1200B，可依圖面加工各式金屬零件與客製化工件。", photos: ["equip-mill-litz.jpg","control-panel.jpg","tool-head.jpg"] },
+  { name: "遠東搪床 R2", model: "", spec: "加工長度 1.6m × 1m", detail: "遠東搪床 R2，專精孔徑精密搪孔加工，加工長度 1.6m × 1m，適合高精度孔位要求的零件。", photos: ["equip-boring.jpg"] },
+  { name: "傳統銑床（2台）", model: "邁鑫銑床", spec: "其中一台銑頭可旋轉", detail: "兩台傳統銑床（邁鑫銑床），其中一台銑頭可旋轉，加工角度更有彈性，適合特殊角度銑削需求。", photos: ["equip-mill-old-2.jpg","equip-mill-old-3.jpg"] },
+  { name: "鑽床、鑽孔機", model: "CHII SHENG CSR-1600", spec: "搖臂鑽床", detail: "CHII SHENG CSR-1600 搖臂鑽床，處理各類鑽孔加工需求。", photos: ["equip-drill.jpg"] },
+  { name: "拉絲機", model: "勝豐機械 WORLDMAX", spec: "金屬表面拉絲加工", detail: "勝豐機械廠 WORLDMAX 寬帶研磨機，用於金屬表面拉絲處理，呈現一致的表面紋理效果。", photos: ["equip-carousel-2.jpg"] },
+  { name: "電動攻牙機、氣動攻牙機", model: "", spec: "電動 m3-m24／氣動 m3-m16", detail: "電動攻牙機加工範圍 m3 至 m24，氣動攻牙機加工範圍 m3 至 m16，依工件材質與孔徑選擇合適設備進行螺紋攻牙。", photos: ["equip-tapper.jpg","equip-tapper-pneumatic.jpg"] },
+  { name: "竹節加工機", model: "XK8450MD", spec: "鋼筋表面竹節紋路滾軋成型", detail: "XK8450MD，滾軋成型鋼筋表面竹節狀橫肋紋路，強化鋼筋與混凝土之間的握裹力，提升結構接合強度。", photos: ["equip-rebar.jpg","equip-rebar-product.jpg"] },
+  { name: "空壓機", model: "PUMA SP20VH5", spec: "氣動設備動力來源", detail: "PUMA SP20VH5，廠內氣動工具與設備的空壓動力來源，確保氣動攻牙機等設備穩定運作。", photos: ["equip-compressor.jpg"] }
+];
+
+function renderEquipment() {
+  const grid = document.getElementById('equip-grid');
+  EQUIPMENT.forEach((item, i) => {
+    const firstPhoto = item.photos && item.photos[0];
+    const card = document.createElement('div');
+    card.className = 'equip-card';
+    card.innerHTML = `
+      <div class="equip-photo" style="${firstPhoto ? `background-image:url('images/${firstPhoto}'); background-size:cover; background-position:center;` : ''}">${firstPhoto ? '' : '待替換：' + item.name + '照片'}</div>
+      <div class="equip-body">
+        <h3>${item.name}</h3>
+        <p class="spec-preview">${item.spec}</p>
+        ${item.model ? `<span class="tag-credential" style="margin-top:8px; display:inline-block;">${item.model}</span>` : ''}
+        <span class="click-hint">點看詳細規格 →</span>
+      </div>
+    `;
+    card.addEventListener('click', () => openModal(i));
+    grid.appendChild(card);
+  });
+}
+
+let modalPhotoIndex = 0;
+function openModal(i) {
+  const item = EQUIPMENT[i];
+  document.getElementById('equip-modal').dataset.itemIndex = i;
+  modalPhotoIndex = 0;
+  document.getElementById('modal-title').textContent = item.name;
+  document.getElementById('modal-model').textContent = item.model ? item.model : '';
+  document.getElementById('modal-model').style.display = item.model ? 'inline-block' : 'none';
+  document.getElementById('modal-detail').textContent = item.detail;
+  updateModalPhoto();
+  document.getElementById('equip-modal').classList.add('open');
+}
+function updateModalPhoto() {
+  const i = parseInt(document.getElementById('equip-modal').dataset.itemIndex, 10);
+  const item = EQUIPMENT[i];
+  const photos = item.photos || [];
+  const modalPhoto = document.getElementById('modal-photo');
+  const placeholder = document.getElementById('modal-photo-placeholder');
+  const nav = document.getElementById('modal-photo-nav');
+  if (photos.length > 0) {
+    modalPhoto.style.backgroundImage = `url('images/${photos[modalPhotoIndex]}')`;
+    modalPhoto.style.backgroundSize = 'contain';
+    modalPhoto.style.backgroundRepeat = 'no-repeat';
+    modalPhoto.style.backgroundPosition = 'center';
+    placeholder.textContent = '';
+  } else {
+    modalPhoto.style.backgroundImage = '';
+    placeholder.textContent = '待替換：' + item.name + '照片（可放大圖）';
+  }
+  nav.style.display = photos.length > 1 ? 'flex' : 'none';
+  const countEl = document.getElementById('modal-photo-count');
+  if (photos.length > 1) {
+    countEl.style.display = 'block';
+    countEl.textContent = (modalPhotoIndex + 1) + ' / ' + photos.length;
+  } else {
+    countEl.style.display = 'none';
+  }
+}
+function modalPhotoMove(dir) {
+  const i = parseInt(document.getElementById('equip-modal').dataset.itemIndex, 10);
+  const photos = EQUIPMENT[i].photos || [];
+  modalPhotoIndex = (modalPhotoIndex + dir + photos.length) % photos.length;
+  updateModalPhoto();
+}
+function closeModal() {
+  document.getElementById('equip-modal').classList.remove('open');
+}
+
+document.addEventListener('DOMContentLoaded', renderEquipment);
+</script>
+
+<section class="section" style="padding-top:40px;">
+  <div class="wrap">
+    <div id="equip-grid" class="equip-grid"></div>
+  </div>
+</section>
+
+<!-- 彈出視窗：點卡片後顯示詳細內容 -->
+<div id="equip-modal" class="equip-modal" onclick="if(event.target===this) closeModal()">
+  <div class="equip-modal-box" style="position:relative;">
+    <button class="equip-modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-photo" class="modal-photo" style="position:relative;">
+      <div id="modal-photo-placeholder"></div>
+      <div id="modal-photo-nav" style="display:none; position:absolute; inset:0; align-items:center; justify-content:space-between; padding:0 10px;">
+        <button onclick="modalPhotoMove(-1)" style="background:rgba(20,19,16,0.6); color:#fff; border:none; width:32px; height:32px; cursor:pointer;">‹</button>
+        <button onclick="modalPhotoMove(1)" style="background:rgba(20,19,16,0.6); color:#fff; border:none; width:32px; height:32px; cursor:pointer;">›</button>
+      </div>
+      <span id="modal-photo-count" style="position:absolute; bottom:8px; right:8px; background:rgba(20,19,16,0.7); color:#fff; font-family:var(--font-mono); font-size:0.7rem; padding:3px 8px; display:none;"></span>
+    </div>
+    <div class="modal-body">
+      <h3 id="modal-title"></h3>
+      <span id="modal-model" class="tag-credential" style="margin-bottom:12px; display:inline-block;"></span>
+      <p id="modal-detail" style="color:#4A4A42; line-height:1.8;"></p>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap" style="padding:0;">
+    <div class="footer-cta">
+      <h2>想確認能不能加工？<br>直接寄信問我們。</h2>
+      <a href="mailto:monfon@seed.net.tw" class="btn">寄信聯絡我們 →</a>
+    </div>
+    <div class="footer-rule"></div>
+    <div class="footer-info">
+      <div class="visitor-scoreboard"><span class="label">訪客累計</span><span class="num" id="visitor-count-num">------</span></div>
+      <div>盟峰鐵工廠股份有限公司｜統編 84082928</div>
+      <div>07-7872815．高雄市大寮區大有一街15號</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

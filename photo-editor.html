@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>照片編輯工具｜盟峰鐵工廠網站專用</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  body{ background:#EDE9DC; font-family:'Microsoft JhengHei','PingFang TC',sans-serif; }
+  .tool-wrap{ max-width:1200px; margin:0 auto; padding:28px 20px 60px; }
+  .tool-header h1{ font-size:1.5rem; margin:0 0 6px; color:var(--ink); }
+  .tool-header p{ color:#5A5A50; font-size:0.9rem; margin-bottom:20px; }
+  .panel{ background:#fff; border:1px solid #D8D2C0; padding:20px; margin-bottom:20px; }
+  label{ display:block; font-weight:700; font-size:0.85rem; margin-bottom:6px; color:#4A4A42; }
+  select{ width:100%; padding:9px 10px; border:1px solid #D8D2C0; font-size:0.95rem; margin-bottom:10px; font-family:inherit; }
+  .save-status{ font-size:0.82rem; padding:8px 10px; margin-bottom:10px; display:none; }
+  .save-status.ok{ background:#E3F2E1; color:#2E6B2E; display:block; }
+  .save-status.warn{ background:#FFF4E0; color:#6b4a12; display:block; }
+  .main-area{ display:flex; gap:24px; flex-wrap:wrap; align-items:flex-start; }
+  .preview-col{ flex:1.3; min-width:320px; }
+  .preview-col h3{ font-size:0.85rem; color:#8A8678; margin:0 0 8px; font-weight:700; }
+  .live-frame{ border:1px solid #D8D2C0; overflow:hidden; background:#fff; }
+  .control-col{ flex:1; min-width:260px; }
+  .upload-box{
+    border:2px dashed #D8D2C0; padding:24px; text-align:center; margin-bottom:16px; cursor:pointer; background:#FAF8F0;
+  }
+  .upload-box:hover{ border-color:var(--accent); }
+  .slider-row{ margin-bottom:16px; }
+  input[type=range]{ width:100%; }
+  .btn{
+    display:inline-block; background:var(--accent); color:#fff; border:none;
+    padding:12px 22px; font-size:0.95rem; font-weight:700; cursor:pointer; margin-top:6px; margin-right:8px;
+  }
+  .btn:hover{ background:#9C2717; }
+  .btn.secondary{ background:var(--steel); }
+  .canvas-drag{ position:relative; cursor:grab; touch-action:none; }
+  .canvas-drag:active{ cursor:grabbing; }
+  canvas{ display:block; width:100%; height:auto; }
+  .note{ background:#FFF4E0; border:1px solid #D99A3F; padding:10px 12px; font-size:0.82rem; color:#6b4a12; margin-top:12px; }
+  .folder-btn{ background:var(--ink); color:#fff; border:none; padding:10px 16px; font-size:0.85rem; cursor:pointer; margin-bottom:14px; }
+  .folder-btn:hover{ background:#000; }
+</style>
+</head>
+<body>
+<div class="tool-wrap">
+  <div class="tool-header">
+    <h1>📷 照片編輯工具</h1>
+    <p>右邊選要編輯哪個位置，上傳照片、拖曳調整、調亮暗，左邊會直接顯示套用在網站上真正的樣子。弄好按「存檔」就能存到你的網站資料夾裡，不用一直下載再手動搬移。</p>
+  </div>
+
+  <div class="panel">
+    <label>選擇資料夾（只需要做一次）</label>
+    <button class="folder-btn" id="pickFolderBtn">📁 選擇網站的 images 資料夾</button>
+    <div class="save-status" id="folderStatus"></div>
+
+    <label>這張照片要放在網站哪裡？</label>
+    <select id="slotSelect"></select>
+  </div>
+
+  <div class="main-area">
+    <div class="preview-col">
+      <h3>左邊是即時預覽，長得跟網站上一模一樣</h3>
+      <div class="live-frame" id="liveFrame"></div>
+    </div>
+
+    <div class="control-col">
+      <div class="panel">
+        <div class="upload-box" id="uploadBox">
+          <div style="font-size:1.8rem;">⬆</div>
+          <div>點這裡選照片，或直接拖曳檔案進來</div>
+          <input type="file" id="fileInput" accept="image/*" style="display:none;">
+        </div>
+
+        <label>🔍 縮放</label>
+        <div class="slider-row"><input type="range" id="zoomSlider" min="100" max="400" value="100"></div>
+        <label>☀️ 亮度</label>
+        <div class="slider-row"><input type="range" id="brightSlider" min="50" max="180" value="100"></div>
+        <label>◐ 對比度</label>
+        <div class="slider-row"><input type="range" id="contrastSlider" min="50" max="180" value="100"></div>
+
+        <div class="note">在左邊照片上「按住拖曳」調整位置，滾輪縮放。手機拍的照片會自動轉正。</div>
+
+        <button class="btn" id="saveBtn">💾 存檔</button>
+        <button class="btn secondary" id="resetBtn">重設</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="equipHelpPanel" style="display:none;">
+    <label style="margin-bottom:8px;">這台設備目前還沒有指定檔名</label>
+    <p style="font-size:0.85rem; color:#5A5A50;">
+      存檔之後，打開 <code>equipment.html</code>，找到清單裡「<b id="equipNameShow"></b>」那一行，
+      把 <code>photos: []</code> 改成 <code>photos: ["<span id="equipFileShow"></span>"]</code>，存檔就完成了。
+      如果不想碰程式碼，把檔名跟設備名稱告訴我，我幫你接上去。
+    </p>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// 每個「位置」的設定：檔名、比例、以及左邊要怎麼模擬顯示
+// ============================================================
+const SLOTS = [
+  { group:"首頁", label:"主視覺大圖", file:"hero-machining.jpg", ratio:2.2,
+    frame:'nav-hero-dark' },
+  { group:"首頁", label:"服務區塊－CNC車床加工背景", file:"case-custom-2.jpg", ratio:1.0,
+    frame:'service-block' },
+  { group:"首頁", label:"服務區塊－客製化加工背景", file:"case-plant-3.jpg", ratio:1.0,
+    frame:'service-block' },
+  { group:"首頁", label:"代表設備輪播①", file:"equip-carousel-1.jpg", ratio:1.6, frame:'carousel' },
+  { group:"首頁", label:"代表設備輪播②", file:"equip-carousel-2.jpg", ratio:1.6, frame:'carousel' },
+  { group:"首頁", label:"代表設備輪播③", file:"control-panel.jpg", ratio:1.6, frame:'carousel' },
+
+  { group:"關於我們", label:"頁面大圖", file:"about-factory.jpg", ratio:2.8, frame:'about-hero' },
+  { group:"關於我們", label:"招牌照片", file:"nameplate.jpg", ratio:0.75, frame:'nameplate' },
+  { group:"關於我們", label:"現場實景①", file:"worker-action.jpg", ratio:1.18, frame:'scroll-item' },
+  { group:"關於我們", label:"現場實景②", file:"exterior-1.jpg", ratio:1.18, frame:'scroll-item' },
+  { group:"關於我們", label:"現場實景③", file:"exterior-2.jpg", ratio:1.18, frame:'scroll-item' },
+  { group:"關於我們", label:"現場實景④（新增）", file:"scene-4.jpg", ratio:1.18, frame:'scroll-item' },
+  { group:"關於我們", label:"現場實景⑤（新增）", file:"scene-5.jpg", ratio:1.18, frame:'scroll-item' },
+
+  { group:"聯絡我們", label:"頁首背景", file:"exterior-2.jpg", ratio:2.6, frame:'contact-hero' },
+
+  { group:"成品案例－軋鋼滾輪", label:"照片①", file:"case-rollers.jpg", ratio:1.33, frame:'case-grid' },
+  { group:"成品案例－軋鋼滾輪", label:"照片②", file:"case-rollers-3.jpg", ratio:1.33, frame:'case-grid' },
+  { group:"成品案例－軋鋼滾輪", label:"照片③（新增）", file:"case-rollers-5.jpg", ratio:1.33, frame:'case-grid' },
+  { group:"成品案例－電廠零件", label:"照片①", file:"case-plant.jpg", ratio:1.33, frame:'case-grid' },
+  { group:"成品案例－電廠零件", label:"照片②", file:"case-plant-4.jpg", ratio:1.33, frame:'case-grid' },
+  { group:"成品案例－電廠零件", label:"照片③（新增）", file:"case-plant-5.jpg", ratio:1.33, frame:'case-grid' },
+  { group:"成品案例－客製化零件", label:"照片①", file:"case-custom.jpg", ratio:1.33, frame:'case-grid' },
+  { group:"成品案例－客製化零件", label:"照片②", file:"case-custom-3.jpg", ratio:1.33, frame:'case-grid' },
+  { group:"成品案例－客製化零件", label:"照片③（新增）", file:"case-custom-5.jpg", ratio:1.33, frame:'case-grid' },
+
+  { group:"設備介紹", label:"雷射雕刻機①", file:"equip-laser.jpg", ratio:1.33, frame:'equip-card', equip:"雷射雕刻機", noCrop:true },
+  { group:"設備介紹", label:"雷射雕刻機②（新增）", file:"equip-laser-2.jpg", ratio:1.33, frame:'equip-card', equip:"雷射雕刻機", noCrop:true, needsWiring:true },
+  { group:"設備介紹", label:"傳統車床①", file:"equip-old-lathe.jpg", ratio:1.33, frame:'equip-card', equip:"傳統車床（2台）", noCrop:true },
+  { group:"設備介紹", label:"傳統車床②（新增）", file:"equip-old-lathe-2.jpg", ratio:1.33, frame:'equip-card', equip:"傳統車床（2台）", noCrop:true, needsWiring:true },
+  { group:"設備介紹", label:"CNC精密車床①", file:"hero-machining.jpg", ratio:1.33, frame:'equip-card', equip:"CNC 精密車床（3台）", noCrop:true },
+  { group:"設備介紹", label:"CNC精密車床②細節", file:"tool-head.jpg", ratio:1.33, frame:'equip-card', equip:"CNC 精密車床（3台）", noCrop:true },
+  { group:"設備介紹", label:"CNC精密車床③（新增）", file:"equip-cnc-lathe-3.jpg", ratio:1.33, frame:'equip-card', equip:"CNC 精密車床（3台）", noCrop:true, needsWiring:true },
+  { group:"設備介紹", label:"CNC龍門銑床①", file:"equip-carousel-1.jpg", ratio:1.33, frame:'equip-card', equip:"CNC 龍門銑床（3台）", noCrop:true },
+  { group:"設備介紹", label:"CNC龍門銑床②（新增）", file:"equip-gantry-2.jpg", ratio:1.33, frame:'equip-card', equip:"CNC 龍門銑床（3台）", noCrop:true, needsWiring:true },
+  { group:"設備介紹", label:"CNC銑床①", file:"control-panel.jpg", ratio:1.33, frame:'equip-card', equip:"CNC 銑床", noCrop:true },
+  { group:"設備介紹", label:"CNC銑床②（新增）", file:"equip-mill-2.jpg", ratio:1.33, frame:'equip-card', equip:"CNC 銑床", noCrop:true, needsWiring:true },
+  { group:"設備介紹", label:"遠東搪床R2（尚未指定檔名）", file:"equip-boring.jpg", ratio:1.33, frame:'equip-card', equip:"遠東搪床 R2", noCrop:true, needsWiring:true },
+  { group:"設備介紹", label:"傳統銑床（尚未指定檔名）", file:"equip-mill-old.jpg", ratio:1.33, frame:'equip-card', equip:"傳統銑床（2台）", noCrop:true, needsWiring:true },
+  { group:"設備介紹", label:"鑽床、鑽孔機①", file:"equip-drill.jpg", ratio:1.33, frame:'equip-card', equip:"鑽床、鑽孔機", noCrop:true },
+  { group:"設備介紹", label:"鑽床、鑽孔機②（新增）", file:"equip-drill-2.jpg", ratio:1.33, frame:'equip-card', equip:"鑽床、鑽孔機", noCrop:true, needsWiring:true },
+  { group:"設備介紹", label:"拉絲機①", file:"equip-carousel-2.jpg", ratio:1.33, frame:'equip-card', equip:"拉絲機", noCrop:true },
+  { group:"設備介紹", label:"拉絲機②（新增）", file:"equip-wiredraw-2.jpg", ratio:1.33, frame:'equip-card', equip:"拉絲機", noCrop:true, needsWiring:true },
+  { group:"設備介紹", label:"攻牙機（尚未指定檔名）", file:"equip-tapper.jpg", ratio:1.33, frame:'equip-card', equip:"電動攻牙機、氣動攻牙機", noCrop:true, needsWiring:true },
+  { group:"設備介紹", label:"竹節加工機（尚未指定檔名）", file:"equip-rebar.jpg", ratio:1.33, frame:'equip-card', equip:"竹節加工機", noCrop:true, needsWiring:true },
+  { group:"設備介紹", label:"空壓機①", file:"equip-compressor.jpg", ratio:1.33, frame:'equip-card', noCrop:true },
+  { group:"設備介紹", label:"空壓機②（新增）", file:"equip-compressor-2.jpg", ratio:1.33, frame:'equip-card', equip:"空壓機", noCrop:true, needsWiring:true },
+];
+
+const slotSelect = document.getElementById('slotSelect');
+let lastGroup = null;
+SLOTS.forEach((s, i) => {
+  if (s.group !== lastGroup) {
+    // optgroup handled via label prefix for simplicity
+  }
+  lastGroup = s.group;
+});
+// build with optgroups
+(function buildOptions(){
+  const groups = {};
+  SLOTS.forEach((s, i) => { (groups[s.group] = groups[s.group]||[]).push(i); });
+  Object.keys(groups).forEach(g => {
+    const og = document.createElement('optgroup');
+    og.label = g;
+    groups[g].forEach(i => {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = SLOTS[i].label + '　(' + SLOTS[i].file + ')';
+      og.appendChild(opt);
+    });
+    slotSelect.appendChild(og);
+  });
+})();
+
+let currentSlot = SLOTS[0];
+let img = new Image();
+let imgLoaded = false;
+let offsetX = 0, offsetY = 0, zoom = 1, baseScale = 1;
+let brightness = 100, contrast = 100;
+let dragging = false, lastX = 0, lastY = 0;
+let canvas, ctx, CW = 480, CH = 220;
+let dirHandle = null;
+
+function renderFrame() {
+  const liveFrame = document.getElementById('liveFrame');
+  const s = currentSlot;
+  CH = Math.round(CW / s.ratio);
+
+  // 依照 frame 種類，模擬真實頁面的外觀
+  let html = '';
+  if (s.frame === 'nav-hero-dark' || s.frame === 'about-hero' || s.frame === 'contact-hero') {
+    html = `<div style="background:var(--ink); padding:18px;">
+      <div style="color:#B8B4A0; font-family:var(--font-mono); font-size:11px; margin-bottom:8px;">盟峰鐵工廠股份有限公司</div>
+      <div class="canvas-drag" id="canvasHolder"></div>
+    </div>`;
+  } else if (s.frame === 'service-block') {
+    html = `<div style="background:var(--steel); padding:18px;">
+      <div style="max-width:220px;" class="canvas-drag" id="canvasHolder"></div>
+    </div>`;
+  } else if (s.frame === 'carousel') {
+    html = `<div style="background:var(--steel-dark); padding:10px;">
+      <div class="canvas-drag" id="canvasHolder"></div>
+    </div>`;
+  } else if (s.frame === 'nameplate') {
+    html = `<div style="background:#0F0E0C; padding:24px; display:flex; justify-content:center;">
+      <div style="max-width:220px;" class="canvas-drag" id="canvasHolder"></div>
+    </div>`;
+  } else if (s.frame === 'scroll-item') {
+    html = `<div style="background:var(--paper); padding:14px; display:flex; gap:4px;">
+      <div style="width:70%;" class="canvas-drag" id="canvasHolder"></div>
+      <div style="flex:1; background:#ccc;"></div>
+    </div>`;
+  } else if (s.frame === 'case-grid') {
+    html = `<div style="background:var(--ink); padding:14px;">
+      <div class="canvas-drag" id="canvasHolder"></div>
+    </div>`;
+  } else if (s.frame === 'equip-card') {
+    html = `<div style="background:var(--paper-dim); padding:0;">
+      <div class="canvas-drag" id="canvasHolder"></div>
+      <div style="padding:12px 14px; background:var(--paper-dim);">
+        <div style="font-weight:700; font-size:0.95rem;">${s.equip || s.label}</div>
+      </div>
+    </div>`;
+  } else {
+    html = `<div style="padding:14px;" class="canvas-drag" id="canvasHolder"></div>`;
+  }
+  liveFrame.innerHTML = html;
+
+  canvas = document.createElement('canvas');
+  canvas.width = CW; canvas.height = CH;
+  document.getElementById('canvasHolder').appendChild(canvas);
+  ctx = canvas.getContext('2d');
+
+  attachDragEvents(document.getElementById('canvasHolder'));
+  draw();
+
+  // 設備介紹尚未指定檔名的提示
+  const helpPanel = document.getElementById('equipHelpPanel');
+  let helpHtml = '';
+  if (s.noCrop) {
+    helpHtml += `<p style="font-size:0.85rem; color:#5A5A50; margin:0 0 10px;">📌 這個位置會<b>完整保留照片不裁切</b>，縮放功能關閉，只能調亮度對比，這樣之後不管是縮圖還是點開看大圖都不會漏掉機台部分。</p>`;
+  }
+  if (s.needsWiring) {
+    helpHtml += `<p style="font-size:0.85rem; color:#5A5A50;">
+      存檔之後，打開 <code>equipment.html</code>，找到清單裡「<b>${s.equip}</b>」那一行，
+      把 <code>photos: [...]</code> 裡加上 <code>"${s.file}"</code>，存檔就完成了。
+      如果不想碰程式碼，把檔名跟設備名稱告訴我，我幫你接上去。
+    </p>`;
+  }
+  if (helpHtml) {
+    helpPanel.style.display = 'block';
+    helpPanel.innerHTML = '<label style="margin-bottom:8px;">提醒</label>' + helpHtml;
+  } else {
+    helpPanel.style.display = 'none';
+  }
+}
+
+slotSelect.addEventListener('change', () => {
+  currentSlot = SLOTS[parseInt(slotSelect.value, 10)];
+  renderFrame();
+});
+
+const uploadBox = document.getElementById('uploadBox');
+const fileInput = document.getElementById('fileInput');
+uploadBox.addEventListener('click', () => fileInput.click());
+uploadBox.addEventListener('dragover', e => { e.preventDefault(); uploadBox.style.borderColor = '#C4331F'; });
+uploadBox.addEventListener('dragleave', () => { uploadBox.style.borderColor = '#D8D2C0'; });
+uploadBox.addEventListener('drop', e => {
+  e.preventDefault(); uploadBox.style.borderColor = '#D8D2C0';
+  if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+});
+fileInput.addEventListener('change', () => { if (fileInput.files[0]) loadFile(fileInput.files[0]); });
+
+function loadFile(file) {
+  const reader = new FileReader();
+  reader.onload = e => {
+    img = new Image();
+    img.onload = () => { imgLoaded = true; resetView(); };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function resetView() {
+  if (currentSlot.noCrop) {
+    baseScale = Math.min(CW / img.width, CH / img.height);
+    document.getElementById('zoomSlider').disabled = true;
+    document.getElementById('zoomSlider').value = 100;
+  } else {
+    baseScale = Math.max(CW / img.width, CH / img.height);
+    document.getElementById('zoomSlider').disabled = false;
+  }
+  zoom = 1; offsetX = 0; offsetY = 0;
+  document.getElementById('brightSlider').value = 100;
+  document.getElementById('contrastSlider').value = 100;
+  brightness = 100; contrast = 100;
+  draw();
+}
+
+function draw() {
+  if (!ctx) return;
+  ctx.clearRect(0, 0, CW, CH);
+  if (!imgLoaded) {
+    ctx.fillStyle = '#8C8A7C';
+    ctx.fillRect(0, 0, CW, CH);
+    ctx.fillStyle = '#fff';
+    ctx.font = '13px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('尚未上傳照片', CW/2, CH/2);
+    return;
+  }
+  ctx.filter = `brightness(${brightness}%) contrast(${contrast}%)`;
+  const scale = baseScale * zoom;
+  const dw = img.width * scale, dh = img.height * scale;
+  const dx = (CW - dw) / 2 + offsetX;
+  const dy = (CH - dh) / 2 + offsetY;
+  ctx.drawImage(img, dx, dy, dw, dh);
+  ctx.filter = 'none';
+}
+
+function attachDragEvents(holder) {
+  holder.onmousedown = e => { dragging = true; lastX = e.clientX; lastY = e.clientY; };
+  holder.ontouchstart = e => { dragging = true; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; };
+  holder.onwheel = e => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -10 : 10;
+    const slider = document.getElementById('zoomSlider');
+    slider.value = Math.min(400, Math.max(100, parseInt(slider.value) + delta));
+    zoom = slider.value / 100; draw();
+  };
+}
+window.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  offsetX += e.clientX - lastX; offsetY += e.clientY - lastY;
+  lastX = e.clientX; lastY = e.clientY; draw();
+});
+window.addEventListener('mouseup', () => dragging = false);
+window.addEventListener('touchmove', e => {
+  if (!dragging) return;
+  offsetX += e.touches[0].clientX - lastX; offsetY += e.touches[0].clientY - lastY;
+  lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; draw();
+}, { passive:true });
+window.addEventListener('touchend', () => dragging = false);
+
+document.getElementById('zoomSlider').addEventListener('input', e => { zoom = e.target.value/100; draw(); });
+document.getElementById('brightSlider').addEventListener('input', e => { brightness = e.target.value; draw(); });
+document.getElementById('contrastSlider').addEventListener('input', e => { contrast = e.target.value; draw(); });
+document.getElementById('resetBtn').addEventListener('click', resetView);
+
+// ============================================================
+// 選資料夾 + 直接存檔（支援的瀏覽器：Chrome / Edge）
+// ============================================================
+const folderStatus = document.getElementById('folderStatus');
+document.getElementById('pickFolderBtn').addEventListener('click', async () => {
+  if (!window.showDirectoryPicker) {
+    folderStatus.className = 'save-status warn';
+    folderStatus.textContent = '你的瀏覽器不支援直接存檔（建議用電腦版 Chrome 或 Edge），存檔時會改用一般下載方式。';
+    return;
+  }
+  try {
+    dirHandle = await window.showDirectoryPicker();
+    folderStatus.className = 'save-status ok';
+    folderStatus.textContent = '✓ 資料夾已選好，之後按「存檔」會直接存進這裡';
+  } catch (err) {
+    folderStatus.className = 'save-status warn';
+    folderStatus.textContent = '沒有選擇資料夾，存檔時會改用一般下載方式。';
+  }
+});
+
+document.getElementById('saveBtn').addEventListener('click', async () => {
+  if (!imgLoaded) { alert('請先上傳照片'); return; }
+  const ec = document.createElement('canvas');
+  const ex = ec.getContext('2d');
+  ex.filter = `brightness(${brightness}%) contrast(${contrast}%)`;
+
+  if (currentSlot.noCrop) {
+    // 完整輸出原圖，不裁切、不強制比例，只套用亮度對比調整
+    const maxSide = 1600;
+    const s = Math.min(1, maxSide / Math.max(img.width, img.height));
+    ec.width = img.width * s;
+    ec.height = img.height * s;
+    ex.drawImage(img, 0, 0, ec.width, ec.height);
+  } else {
+    const exportScale = 1600 / CW;
+    ec.width = CW * exportScale; ec.height = CH * exportScale;
+    const scale = baseScale * zoom * exportScale;
+    const dw = img.width * scale, dh = img.height * scale;
+    const dx = (ec.width - dw) / 2 + offsetX * exportScale;
+    const dy = (ec.height - dh) / 2 + offsetY * exportScale;
+    ex.drawImage(img, dx, dy, dw, dh);
+  }
+
+  ec.toBlob(async (blob) => {
+    const filename = currentSlot.file;
+    if (dirHandle) {
+      try {
+        const fileHandle = await dirHandle.getFileHandle(filename, { create: true });
+        const writable = await fileHandle.createWritable();
+        await writable.write(blob);
+        await writable.close();
+        folderStatus.className = 'save-status ok';
+        folderStatus.textContent = `✓ 已存成 ${filename}`;
+        return;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    // fallback: 一般下載
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+  }, 'image/jpeg', 0.9);
+});
+
+renderFrame();
+</script>
+</body>
+</html>

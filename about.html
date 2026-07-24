@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>關於我們｜盟峰鐵工廠股份有限公司</title>
+<meta name="description" content="盟峰鐵工廠股份有限公司，前身協豐鐵工廠創立於1967年，兩代傳承超過50年，秉持正直、誠信、務實、精進的經營理念，專精機械加工。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="images/logo.png?v=2">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" style="display:flex; align-items:center; gap:10px;"><img src="images/logo.png" alt="盟峰鐵工廠" style="height:42px; width:auto; display:block;"><span class="logo">盟峰鐵工廠股份有限公司</span></a>
+  <button class="nav-toggle" aria-label="開啟選單">☰</button>
+  <div class="nav-links">
+    <a href="index.html">首頁</a>
+    <a href="about.html" class="active">關於我們</a>
+    <a href="equipment.html">設備介紹</a>
+    <a href="projects.html">成品案例</a>
+    <a href="contact.html" class="nav-cta">聯絡我們</a>
+  </div>
+</nav>
+
+<div class="page-head diag-top" style="background:var(--ink); --cut-a:50px; position:relative; z-index:3;">
+  <div class="wrap">
+    <div class="eyebrow" style="color:#B8B4A0;">關於我們</div>
+    <h1 class="skew-highlight"><span>超過50年</span></h1>
+    <h1 style="color:var(--steel-light); margin-top:-6px;">硬底子的堅持</h1>
+  </div>
+</div>
+
+<div class="diag-follow diag-bottom-alt" style="--cut-a:50px; --cut-b:70px; position:relative; z-index:2; min-height:min(38vw,320px); background:var(--steel-light);">
+  <img src="images/about-factory.jpg" alt="廠房內部" style="width:100%; height:100%; object-fit:cover; position:absolute; inset:0;">
+</div>
+
+<section class="bold-section diag-follow-alt" style="--cut-b:70px; padding-top:100px; position:relative; z-index:1;">
+  <div class="wrap">
+    <div class="grid-2" style="align-items:start;">
+      <div>
+        <div class="eyebrow">創立</div>
+        <p class="lead" style="color:#D8D5C9;">
+          盟峰鐵工廠的前身「協豐鐵工廠」創立於 1967 年，後來因為擴廠遷入工業區，
+          於 1992 年更名為盟峰鐵工廠股份有限公司。兩個階段加起來，
+          累積下來的不只是機台跟廠房，更是超過 50 年處理各種複雜加工案件的經驗跟做事的態度。
+        </p>
+      </div>
+      <div>
+        <div class="eyebrow">經營理念</div>
+        <div class="tight-grid" style="grid-template-columns:1fr 1fr;">
+          <div style="background:var(--accent); padding:24px 16px; text-align:center;">
+            <h3 style="margin:0; font-size:1.6rem; color:#fff;">正直</h3>
+          </div>
+          <div style="background:#7A7972; padding:24px 16px; text-align:center;">
+            <h3 style="margin:0; font-size:1.6rem; color:#fff;">誠信</h3>
+          </div>
+          <div style="background:#7A7972; padding:24px 16px; text-align:center;">
+            <h3 style="margin:0; font-size:1.6rem; color:#fff;">務實</h3>
+          </div>
+          <div style="background:var(--accent); padding:24px 16px; text-align:center;">
+            <h3 style="margin:0; font-size:1.6rem; color:#fff;">精進</h3>
+          </div>
+        </div>
+        <div style="margin-top:20px; border-left:4px solid var(--accent); padding-left:14px;">
+          <div style="font-size:1.5rem; font-weight:900; color:#fff;">品質至上</div>
+          <p style="margin-top:6px; color:#C9C7BC; font-size:1.05rem;">這是我們對每一件加工品的堅持，也是客戶願意長期合作的原因。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bold-section darker">
+  <div class="wrap">
+    <div class="eyebrow">公司沿革</div>
+    <div class="timeline-strip">
+      <div><div class="t-label">1967</div><div class="t-sub">協豐鐵工廠創立</div></div>
+      <div><div class="t-label">1992</div><div class="t-sub">擴廠遷入工業區，更名盟峰鐵工廠</div></div>
+      <div><div class="t-label">擴廠</div><div class="t-sub">陸續添購 CNC 設備</div></div>
+      <div><div class="t-label">拓展</div><div class="t-sub">日本客戶長期合作</div></div>
+      <div class="now"><div class="t-label">現在</div><div class="t-sub">追求卓越品質</div></div>
+    </div>
+  </div>
+</section>
+
+<!--
+  廠房實況影片：這三支目前還不是最終版本，你可以隨時自己換掉。
+  換法：把新影片存成 MP4 格式，檔名取一樣的 video-1.mp4／video-2.mp4／video-3.mp4，
+  直接蓋掉 videos 資料夾裡的舊檔案就行，網頁會自動顯示新內容，不用改任何程式碼。
+
+  提醒：因為這是純靜態網站、沒有後台資料庫，沒辦法做到「直接在網站上按上傳」這種功能，
+  那需要一個後端伺服器才能做到，跟我們選擇「簡單、好維護、免費」的方向會有衝突。
+  換檔案雖然要碰到資料夾，但其實就是「找到檔案、換掉、存檔」三個動作，跟換照片一樣簡單。
+
+  影片格式建議：MP4（H.264 編碼），手機拍的影片如果是 iPhone 預設的 HEVC 格式，
+  很多瀏覽器沒辦法直接播放，建議先用手機內建的「分享」功能存一份「較相容」的版本，
+  或是有需要我可以幫忙轉檔，你只要把原始影片傳給我就好。
+-->
+<section class="bold-section">
+  <div class="wrap">
+    <div class="eyebrow">廠房實況</div>
+    <h2 style="margin-bottom:20px;">機台運作，眼見為憑</h2>
+    <div class="tight-grid" style="grid-template-columns:1fr 1fr;">
+      <div>
+        <video controls poster="images/video-poster-1.jpg" style="width:100%; height:320px; display:block; background:#000; object-fit:cover;">
+          <source src="videos/video-1.mp4" type="video/mp4">
+        </video>
+        <p style="margin-top:8px; color:#C9C7BC; font-size:0.9rem; text-align:center;">滾輪刻字加工</p>
+      </div>
+      <div>
+        <video controls poster="images/video-poster-2.jpg" style="width:100%; height:320px; display:block; background:#000; object-fit:cover;">
+          <source src="videos/video-2.mp4" type="video/mp4">
+        </video>
+        <p style="margin-top:8px; color:#C9C7BC; font-size:0.9rem; text-align:center;">竹節加工實況</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bold-section">
+  <div class="wrap">
+    <div class="eyebrow">公司基本資料</div>
+    <div class="grid-2" style="margin-top:16px;">
+      <table style="width:100%; border-collapse:collapse; font-size:0.95rem; color:#D8D5C9;">
+        <tr style="border-bottom:1px solid var(--steel-dark);"><td style="padding:12px 0; color:#D8D5C9; font-weight:700;">公司名稱</td><td style="padding:12px 0; font-weight:700; color:#fff;">盟峰鐵工廠股份有限公司</td></tr>
+        <tr style="border-bottom:1px solid var(--steel-dark);"><td style="padding:12px 0; color:#D8D5C9; font-weight:700;">英文名稱</td><td style="padding:12px 0; font-weight:700; color:#fff;">MOON-FONG CO., LTD.</td></tr>
+        <tr style="border-bottom:1px solid var(--steel-dark);"><td style="padding:12px 0; color:#D8D5C9; font-weight:700;">統一編號</td><td style="padding:12px 0; font-weight:700; font-family:var(--font-mono); color:#fff;">84082928</td></tr>
+        <tr style="border-bottom:1px solid var(--steel-dark);"><td style="padding:12px 0; color:#D8D5C9; font-weight:700;">創立</td><td style="padding:12px 0; font-weight:700; color:#fff;">1967 年（前身協豐鐵工廠）</td></tr>
+        <tr style="border-bottom:1px solid var(--steel-dark);"><td style="padding:12px 0; color:#D8D5C9; font-weight:700;">員工人數</td><td style="padding:12px 0; font-weight:700; color:#fff;">11 人</td></tr>
+        <tr><td style="padding:12px 0; color:#D8D5C9; font-weight:700;">進出口資格</td><td style="padding:12px 0;"><span class="tag-credential">進口資格</span> <span class="tag-credential">出口資格</span></td></tr>
+      </table>
+      <div>
+        <div class="eyebrow">主要合作產業</div>
+        <div class="tight-grid" style="grid-template-columns:1fr 1fr;">
+          <div class="tight-block" style="padding:20px 16px;"><h3 style="margin:0; font-size:1.15rem;">電廠</h3><p style="margin:4px 0 0; font-size:0.8rem; color:#C9C7BC;">零件加工與維修</p></div>
+          <div class="tight-block raised" style="padding:20px 16px;"><h3 style="margin:0; font-size:1.15rem;">機械設備製造</h3><p style="margin:4px 0 0; font-size:0.8rem; color:#C9C7BC;">客製化零件供應</p></div>
+          <div class="tight-block raised" style="padding:20px 16px;"><h3 style="margin:0; font-size:1.15rem;">鋼鐵業</h3><p style="margin:4px 0 0; font-size:0.8rem; color:#C9C7BC;">軋鋼滾輪加工</p></div>
+          <div class="tight-block" style="padding:20px 16px;"><h3 style="margin:0; font-size:1.15rem;">日本企業</h3><p style="margin:4px 0 0; font-size:0.8rem; color:#C9C7BC;">半導體電子設備零件組裝</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bold-section">
+  <div class="wrap" style="padding-right:0;">
+    <div class="eyebrow">現場實景</div>
+    <h2 style="margin-bottom:20px;">廠房內外，最真實的樣子</h2>
+  </div>
+  <!--
+    這排照片可以橫向滑動，之後要加第4、5、6張，直接複製一個 <div class="scroll-item">
+    貼在最後面、換照片檔名即可，欄數會自動增加，不用改版面設定
+  -->
+  <div id="scene-scroll" class="no-scrollbar h-scroll" style="display:flex; gap:4px; overflow-x:auto; padding:0 24px 12px;">
+    <div class="scroll-item" style="flex:0 0 260px; height:220px; overflow:hidden; scroll-snap-align:start;"><img src="images/scene-new-6.jpg" alt="廠房實景" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+    <div class="scroll-item" style="flex:0 0 260px; height:220px; overflow:hidden; scroll-snap-align:start;"><img src="images/scene-new-2.jpg" alt="廠房實景" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+    <div class="scroll-item" style="flex:0 0 260px; height:220px; overflow:hidden; scroll-snap-align:start;"><img src="images/exterior-1.jpg" alt="工廠外觀" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+    <div class="scroll-item" style="flex:0 0 260px; height:220px; overflow:hidden; scroll-snap-align:start;"><img src="images/scene-new-7.jpg" alt="廠房實景" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+    <div class="scroll-item" style="flex:0 0 260px; height:220px; overflow:hidden; scroll-snap-align:start;"><img src="images/scene-new-1.jpg" alt="廠房實景" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+    <div class="scroll-item" style="flex:0 0 260px; height:220px; overflow:hidden; scroll-snap-align:start;"><img src="images/scene-new-5.jpg" alt="廠房實景" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+    <div class="scroll-item" style="flex:0 0 260px; height:220px; overflow:hidden; scroll-snap-align:start;"><img src="images/scene-new-3.jpg" alt="廠房實景" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+  </div>
+</section>
+
+<section class="bold-section darker">
+  <div class="wrap">
+    <div class="tight-grid" style="grid-template-columns:1fr 1.2fr; align-items:stretch;">
+      <div style="min-height:260px; overflow:hidden;">
+        <img src="images/nameplate.jpg" alt="盟峰鐵工廠門牌" style="width:100%; height:100%; object-fit:cover; display:block;">
+      </div>
+      <div class="tight-block raised" style="padding:34px 30px; display:flex; flex-direction:column; justify-content:center;">
+        <div class="eyebrow">真材實料</div>
+        <div style="font-size:1.5rem; font-weight:900; color:#fff; line-height:1.4;">高雄市大寮區大有一街15號</div>
+        <p style="margin-top:10px; color:#2B2A26; font-size:0.95rem;">超過50年來，同一份堅持，持續傳承。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap" style="padding:0;">
+    <div class="footer-cta">
+      <h2>有加工需求？<br>直接找我們談。</h2>
+      <a href="mailto:monfon@seed.net.tw" class="btn">寄信聯絡我們 →</a>
+    </div>
+    <div class="footer-rule"></div>
+    <div class="footer-info">
+      <div class="visitor-scoreboard"><span class="label">訪客累計</span><span class="num" id="visitor-count-num">------</span></div>
+      <div>盟峰鐵工廠股份有限公司｜統編 84082928</div>
+      <div>07-7872815．高雄市大寮區大有一街15號</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

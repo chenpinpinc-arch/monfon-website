@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>成品案例｜盟峰鐵工廠股份有限公司</title>
+<meta name="description" content="盟峰鐵工廠加工案例：軋鋼滾輪、電廠零件加工、客製化零件加工，高雄大寮在地機械加工廠。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="images/logo.png?v=2">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" style="display:flex; align-items:center; gap:10px;"><img src="images/logo.png" alt="盟峰鐵工廠" style="height:42px; width:auto; display:block;"><span class="logo">盟峰鐵工廠股份有限公司</span></a>
+  <button class="nav-toggle" aria-label="開啟選單">☰</button>
+  <div class="nav-links">
+    <a href="index.html">首頁</a>
+    <a href="about.html">關於我們</a>
+    <a href="equipment.html">設備介紹</a>
+    <a href="projects.html" class="active">成品案例</a>
+    <a href="contact.html" class="nav-cta">聯絡我們</a>
+  </div>
+</nav>
+
+<div class="page-head diag-top" style="background:var(--ink); --cut-a:50px; position:relative; z-index:3;">
+  <div class="wrap">
+    <div class="eyebrow" style="color:#B8B4A0;">成品案例</div>
+    <h1 class="skew-highlight"><span>實績攤開來看</span></h1>
+    <h1 style="color:var(--steel-light); margin-top:-6px;">案例經得起檢驗</h1>
+  </div>
+</div>
+
+<!--
+  ============================================================
+  三大分類的照片都寫在下面這個 CATEGORIES 陣列裡。
+  之後要新增照片，直接在對應分類的 photos 陣列裡加一行檔名就好，
+  縮圖網格跟燈箱瀏覽會自動產生，不用改版面程式碼。
+  ============================================================
+-->
+<section class="bold-section diag-follow" style="--cut-a:50px; padding-top:90px;">
+  <div class="wrap">
+
+    <script>
+      const CATEGORIES = [
+        {
+          name: "軋鋼滾輪",
+          desc: "滾筒、輥輪類大型迴轉件加工",
+          photos: ["case-rollers-11.jpg","case-rollers-12.jpg","case-rollers-13.jpg","case-rollers-14.jpg","case-rollers.jpg","case-rollers-2.jpg","case-rollers-3.jpg"]
+        },
+        {
+          name: "電廠零件加工",
+          desc: "",
+          photos: ["case-plant.jpg","case-plant-2.jpg","case-plant-3.jpg","case-plant-5.jpg","case-plant-11.jpg","case-plant-12.jpg","case-plant-13.jpg","case-plant-14.jpg","case-plant-15.jpg","case-plant-16.jpg","case-plant-17.jpg","case-plant-18.jpg","case-plant-19.jpg","case-plant-20.jpg","case-plant-21.jpg","case-plant-22.jpg","case-plant-23.jpg","case-plant-24.jpg","case-plant-25.jpg","case-plant-26.jpg","case-plant-27.jpg","case-plant-28.jpg","case-plant-29.jpg","case-plant-30.jpg","case-plant-31.jpg","case-plant-32.jpg","case-plant-33.jpg","case-plant-34.jpg","case-plant-35.jpg","case-plant-36.jpg"]
+        },
+        {
+          name: "客製化零件加工",
+          desc: "花鍵軸、聯軸器等依圖客製加工",
+          photos: ["case-custom.jpg","case-custom-2.jpg","case-custom-3.jpg","case-custom-4.jpg","case-custom-5.jpg","case-custom-6.jpg","case-custom-8.jpg","case-custom-9.jpg","case-custom-11.jpg","case-custom-12.jpg","case-custom-13.jpg","case-custom-14.jpg","case-custom-15.jpg","case-custom-16.jpg","case-custom-17.jpg","case-custom-18.jpg","case-custom-19.jpg","case-custom-20.jpg","case-custom-21.jpg","case-custom-22.jpg","case-custom-23.jpg","case-custom-24.jpg","case-custom-25.jpg","case-custom-26.jpg","case-custom-27.jpg","case-custom-28.jpg","case-custom-29.jpg","case-custom-30.jpg","case-custom-31.jpg","case-custom-32.jpg","case-custom-33.jpg","case-custom-34.jpg","case-custom-35.jpg","case-custom-36.jpg","case-custom-37.jpg","case-custom-38.jpg","case-custom-39.jpg","case-custom-40.jpg","case-custom-41.jpg","case-custom-42.jpg","case-custom-43.jpg","case-custom-44.jpg","case-custom-45.jpg","case-custom-46.jpg","case-custom-47.jpg","case-custom-48.jpg","case-custom-49.jpg","case-custom-50.jpg","case-custom-51.jpg","case-custom-52.jpg","case-custom-53.jpg","case-custom-54.jpg","case-custom-55.jpg","case-custom-56.jpg","case-custom-57.jpg","case-custom-58.jpg","case-custom-59.jpg","case-custom-60.jpg","case-custom-61.jpg","case-custom-62.jpg","case-custom-63.jpg","case-custom-64.jpg","case-custom-65.jpg","case-custom-66.jpg","case-custom-67.jpg","case-custom-68.jpg","case-custom-69.jpg","case-custom-70.jpg","case-custom-71.jpg","case-custom-72.jpg","case-custom-73.jpg","case-custom-74.jpg","case-custom-75.jpg","case-custom-76.jpg","case-custom-77.jpg","case-custom-78.jpg","case-custom-79.jpg","case-custom-80.jpg","case-custom-81.jpg","case-custom-82.jpg","case-custom-83.jpg","case-custom-84.jpg","case-custom-85.jpg","case-custom-86.jpg","case-custom-87.jpg","case-custom-88.jpg","case-custom-89.jpg","case-custom-90.jpg","case-custom-91.jpg","case-custom-92.jpg","case-custom-93.jpg","case-custom-94.jpg","case-custom-95.jpg","case-custom-96.jpg","case-custom-97.jpg","case-custom-98.jpg","case-custom-99.jpg"]
+        },
+        {
+          name: "日本電子組裝件零件",
+          desc: "半導體電子設備零件組裝",
+          photos: ["case-japan-1.jpg","case-japan-2.jpg","case-japan-3.jpg","case-japan-4.jpg","case-japan-5.jpg","case-japan-6.jpg","case-japan-7.jpg","case-japan-8.jpg"]
+        }
+      ];
+
+      function renderCategories() {
+        const wrap = document.getElementById('cat-wrap');
+        CATEGORIES.forEach((cat, ci) => {
+          const block = document.createElement('div');
+          block.style.marginBottom = '40px';
+          const useTwoRows = cat.photos.length > 8;
+          let itemsHtml, itemCount;
+
+          if (useTwoRows) {
+            // 超過8張才兩排疊放，欄位橫向排列可以往右滑看更多
+            const columns = [];
+            for (let i = 0; i < cat.photos.length; i += 2) {
+              columns.push(cat.photos.slice(i, i + 2));
+            }
+            itemCount = columns.length;
+            itemsHtml = columns.map(pair => `
+              <div style="flex:0 0 260px; display:flex; flex-direction:column; gap:3px;">
+                ${pair.map(p => {
+                  const pi = cat.photos.indexOf(p);
+                  return `<div style="position:relative; overflow:hidden; cursor:pointer; height:160px;" onclick="openGallery(${ci},${pi})">
+                    <img src="images/${p}" alt="${cat.name}" style="width:100%; height:100%; object-fit:cover; display:block;">
+                  </div>`;
+                }).join('')}
+              </div>
+            `).join('');
+          } else {
+            // 8張以內維持原本單排樣式
+            itemCount = cat.photos.length;
+            itemsHtml = cat.photos.map((p, pi) => `
+              <div style="flex:0 0 260px; position:relative; overflow:hidden; cursor:pointer; height:260px;" onclick="openGallery(${ci},${pi})">
+                <img src="images/${p}" alt="${cat.name}" style="width:100%; height:100%; object-fit:cover; display:block;">
+              </div>
+            `).join('');
+          }
+
+          const showHint = itemCount > 3;
+          const btnStyle = 'position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px; border-radius:50%; border:none; background:#fff; color:var(--ink); font-size:1.6rem; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:2; box-shadow:0 2px 6px rgba(0,0,0,0.3);';
+          block.innerHTML = `
+            <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px;">
+              <h3 style="font-size:1.6rem; color:#fff; margin:0;">${cat.name}</h3>
+              <span style="font-size:0.85rem; color:#C9C7BC;">${cat.desc}</span>
+            </div>
+            <div style="position:relative;">
+              <div class="no-scrollbar h-scroll" id="cat-scroll-${ci}" style="display:flex; gap:3px; overflow-x:auto;">${itemsHtml}</div>
+              ${showHint ? `
+                <button id="cat-prev-${ci}" onclick="catScrollMove(${ci}, -280)" aria-label="看前面的照片" style="${btnStyle} left:8px; display:none;">‹</button>
+                <button id="cat-next-${ci}" onclick="catScrollMove(${ci}, 280)" aria-label="看更多照片" style="${btnStyle} right:8px;">›</button>
+              ` : ''}
+            </div>
+          `;
+          wrap.appendChild(block);
+        });
+
+        // 依照目前捲動位置，自動顯示/隱藏左右按鈕：
+        // 一開始在最左邊只顯示右邊按鈕，滑到最右邊只顯示左邊按鈕，中間兩邊都顯示
+        CATEGORIES.forEach((cat, ci) => {
+          const itemCount = cat.photos.length > 8 ? Math.ceil(cat.photos.length / 2) : cat.photos.length;
+          if (itemCount <= 3) return;
+          const el = document.getElementById('cat-scroll-' + ci);
+          const prevBtn = document.getElementById('cat-prev-' + ci);
+          const nextBtn = document.getElementById('cat-next-' + ci);
+          if (!el || !prevBtn || !nextBtn) return;
+          function updateButtons() {
+            prevBtn.style.display = el.scrollLeft > 10 ? 'flex' : 'none';
+            nextBtn.style.display = (el.scrollLeft < el.scrollWidth - el.clientWidth - 10) ? 'flex' : 'none';
+          }
+          el.addEventListener('scroll', updateButtons);
+          updateButtons();
+        });
+      }
+
+      function catScrollMove(ci, amount) {
+        const el = document.getElementById('cat-scroll-' + ci);
+        if (!el) return;
+        el.scrollBy({ left: amount, behavior: 'smooth' });
+      }
+
+      let galleryCategory = 0, galleryIndex = 0;
+      function openGallery(ci, pi) {
+        galleryCategory = ci; galleryIndex = pi;
+        updateGallery();
+        document.getElementById('gallery-modal').classList.add('open');
+      }
+      function updateGallery() {
+        const cat = CATEGORIES[galleryCategory];
+        document.getElementById('gallery-img').src = 'images/' + cat.photos[galleryIndex];
+        document.getElementById('gallery-title').textContent = cat.name + '　(' + (galleryIndex+1) + ' / ' + cat.photos.length + ')';
+      }
+      function galleryMove(dir) {
+        const cat = CATEGORIES[galleryCategory];
+        galleryIndex = (galleryIndex + dir + cat.photos.length) % cat.photos.length;
+        updateGallery();
+      }
+      function closeGallery() {
+        document.getElementById('gallery-modal').classList.remove('open');
+      }
+
+      document.addEventListener('DOMContentLoaded', renderCategories);
+    </script>
+
+    <div id="cat-wrap"></div>
+
+    <p style="text-align:center; margin-top:10px;">
+      <span class="tag-credential" style="font-size:0.9rem; padding:12px 26px;">＋ 更多案例陸續更新中</span>
+    </p>
+  </div>
+</section>
+
+<!-- 燈箱：點縮圖後放大瀏覽該分類全部照片 -->
+<div id="gallery-modal" class="equip-modal" onclick="if(event.target===this) closeGallery()">
+  <div style="position:relative; max-width:800px; width:100%;">
+    <button class="equip-modal-close" onclick="closeGallery()" style="top:-42px; right:0;">✕</button>
+    <img id="gallery-img" src="" alt="" style="width:100%; max-height:70vh; object-fit:contain; display:block; background:#000;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+      <button onclick="galleryMove(-1)" style="background:var(--ink); color:#fff; border:none; padding:10px 18px; cursor:pointer;">‹ 上一張</button>
+      <span id="gallery-title" style="color:#fff; font-family:var(--font-mono); font-size:0.85rem;"></span>
+      <button onclick="galleryMove(1)" style="background:var(--ink); color:#fff; border:none; padding:10px 18px; cursor:pointer;">下一張 ›</button>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap" style="padding:0;">
+    <div class="footer-cta">
+      <h2>有類似的加工需求？<br>直接寄信問我們。</h2>
+      <a href="mailto:monfon@seed.net.tw" class="btn">寄信聯絡我們 →</a>
+    </div>
+    <div class="footer-rule"></div>
+    <div class="footer-info">
+      <div class="visitor-scoreboard"><span class="label">訪客累計</span><span class="num" id="visitor-count-num">------</span></div>
+      <div>盟峰鐵工廠股份有限公司｜統編 84082928</div>
+      <div>07-7872815．高雄市大寮區大有一街15號</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
